@@ -2,9 +2,11 @@ package com.felix.demoparkapi.web.controllers;
 
 import com.felix.demoparkapi.models.Usuario;
 import com.felix.demoparkapi.services.UsuarioService;
+import com.felix.demoparkapi.web.dtos.UsuarioCreateDto;
 import com.felix.demoparkapi.web.dtos.UsuarioResponseDto;
 import com.felix.demoparkapi.web.dtos.UsuarioSenhaDto;
 import com.felix.demoparkapi.web.dtos.mapper.UsuarioMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +23,9 @@ public class UsuarioController {
 
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario){
-        Usuario user = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto){
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario((createDto)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
     @GetMapping(value="/{id}")
