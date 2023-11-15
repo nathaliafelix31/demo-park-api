@@ -1,4 +1,4 @@
-package  com.felix.configs;
+package  com.felix.demoparkapi.configs;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
